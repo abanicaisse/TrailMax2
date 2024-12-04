@@ -1,7 +1,5 @@
 // Import the functions you need from the SDKs you need
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -49,7 +47,7 @@ const userSignUp = async () => {
 
       setTimeout(() => {
         loginModal.classList.remove("active");
-        location.replace("../index.html");
+        location.replace("/");
         console.log("registered successfully");
       }, 1500);
     })
@@ -64,7 +62,7 @@ const userLogIn = async () => {
   signInWithEmailAndPassword(auth, userEmail.value, userPassword.value)
     .then((userCredential) => {
       const user = userCredential.user;
-      location.replace("../index.html");
+      location.replace("/");
     })
     .catch((error) => {
       console.log("Error");
@@ -102,17 +100,16 @@ const checkAuthState = async () => {
 checkAuthState();
 
 authForm
-  ?
-  authForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  ? authForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    if (authForm.classList.contains("signup-form")) {
-      userSignUp();
-    } else {
-      userLogIn();
-    }
-    // handle submit
-  }) :
-  null;
+      if (authForm.classList.contains("signup-form")) {
+        userSignUp();
+      } else {
+        userLogIn();
+      }
+      // handle submit
+    })
+  : null;
 
 signOutBtn ? signOutBtn.addEventListener("click", userLogOut) : null;

@@ -44,13 +44,13 @@ const getMovieCredits = async (media_type, movieID) => {
     const movieProducer =
       responseJSON.crew.filter(
         (crewMember) => crewMember.job == "Executive Producer"
-      ).length > 0 ?
-      responseJSON.crew
-      .filter((crewMember) => crewMember.job == "Executive Producer")
-      .slice(0, 1)[0].name :
-      responseJSON.crew.filter(
-        (crewMember) => crewMember.job == "Executive Producer"
-      );
+      ).length > 0
+        ? responseJSON.crew
+            .filter((crewMember) => crewMember.job == "Executive Producer")
+            .slice(0, 1)[0].name
+        : responseJSON.crew.filter(
+            (crewMember) => crewMember.job == "Executive Producer"
+          );
 
     const movieCredit = [movieCast, movieProducer];
 
@@ -260,9 +260,8 @@ const renderTrendingMovies = async (media_type, period) => {
             `;
 
       trendingMovieContainer
-        ?
-        (trendingMovieContainer.innerHTML += `${movieCard}`) :
-        null;
+        ? (trendingMovieContainer.innerHTML += `${movieCard}`)
+        : null;
       // console.log(movie)
     });
   } catch (error) {
@@ -377,7 +376,10 @@ if (location.href.toString().includes("/pages/all-movies.html")) {
   loadMore("movie", "upccoming", 1, "");
 }
 
-if (location.toString().includes("/index.html")) {
+if (
+  location.toString().includes("/") ||
+  location.toString().includes("/index.html")
+) {
   window.addEventListener("load", async () => {
     renderTrendingMovies("movie", "day");
     renderTrendingMovies("tv", "day");
